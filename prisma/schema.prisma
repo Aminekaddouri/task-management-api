@@ -1,0 +1,28 @@
+// This is your Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication
+model User {
+  id        String   @id @default(uuid()) // Primary key, auto-generated UUID
+  email     String   @unique              // Must be unique
+  username  String   @unique              // Must be unique
+  password  String                        // Hashed password
+  firstName String?                       // ? means optional
+  lastName  String?                       // Optional
+  avatar    String?                       // Optional
+  
+  emailVerified Boolean  @default(false)  // Default to false
+  createdAt     DateTime @default(now())  // Auto-set on creation
+  updatedAt     DateTime @updatedAt       // Auto-update on change
+
+  @@map("users")
+}

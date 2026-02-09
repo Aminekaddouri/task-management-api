@@ -7,10 +7,13 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
   },
   "keywords": [
-    "task-manageent",
+    "task-management",
     "api",
     "real-time",
     "collaboration",
@@ -19,11 +22,13 @@
   "author": "Kaddouri Amine",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^5.8.0",
     "express": "^4.18.2",
     "dotenv": "^16.3.1",
     "cors": "^2.8.5"
   },
   "devDependencies": {
+    "prisma": "^5.8.0",
     "typescript": "^5.3.3",
     "@types/node": "^20.10.6",
     "@types/express": "^4.17.21",
