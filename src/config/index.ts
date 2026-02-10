@@ -9,7 +9,10 @@ interface Config {
   apiVersion: string;
   database: {
     url: string;
-  }
+  };
+  redis: {
+    url: string;
+  };
 }
 
 const config: Config = {
@@ -19,6 +22,9 @@ const config: Config = {
   database: {
     url: process.env.DATABASE_URL || '',
   },
+  redis: {
+    url: process.env.REDIS_URL || 'redis://localhost:6379',
+  },
 };
 
-export default config
+export default config;

@@ -23,5 +23,9 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 
 # Test coverage
+coverage/

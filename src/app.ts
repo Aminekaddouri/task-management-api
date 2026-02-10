@@ -1,8 +1,10 @@
-import express, { Application } from "express";
-import cors from "cors";
-import config from "./config";
-import routes from "./routes";
-import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
+import express, { Application } from 'express';
+import cors from 'cors';
+import config from './config';
+import routes from './routes';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler';
+import { requestLogger } from './middleware/requestLogger';
+import { apiLimiter } from './middleware/rateLimiter';
 
 // Create Express app
 const app: Application = express();
@@ -11,6 +13,8 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(requestLogger);
+app.use(apiLimiter)
 
 // Routes
 app.use(`/api/${config.apiVersion}`, routes);

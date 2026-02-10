@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import logger from '../utils/logger';
 import { url } from 'inspector';
 
 // Custom error class
@@ -31,12 +32,14 @@ export const errorHandler = (
     message = err.message;
   }
 
-  // Log error (in production, using proper logging service)
-  console.error('Error:', {
+  // Log error using Winston
+  logger.error('Error occurred', {
     message: err.message,
     stack: err.stack,
     url: req.url,
     method: req.method,
+    ip: req.ip,
+    statusCode,
   });
 
   // Send error response
@@ -49,6 +52,12 @@ export const errorHandler = (
 
 // 404 Not Found handler
 export const notFoundHandler = (req: Request, res: Response) => {
+  logger.warn('Route not found', {
+    method: req.method,
+    url: req.originalUrl,
+    ip: req.ip,
+  });
+
   res.status(404).json({
     status: 'error',
     message: `Route ${req.originalUrl} not found`,
