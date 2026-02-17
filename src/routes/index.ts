@@ -3,6 +3,7 @@ import config from '../config';
 import prisma from '../config/database';
 import redisClient from '../config/redis';
 import testRoutes from './test.routes';
+import authRoutes from './auth.routes';
 
 const router = Router();
 
@@ -44,12 +45,14 @@ router.get('/', (req: Request, res: Response) => {
     version: config.apiVersion,
     endpoints: {
       health: '/api/v1/health',
+      auth: '/api/v1/auth',
       test: '/api/v1/test',
     },
   });
 });
 
-// Mount test routes (will be removed when we add real features)
+// Mount routes
+router.use('/auth', authRoutes);
 router.use('/test', testRoutes);
 
 export default router;

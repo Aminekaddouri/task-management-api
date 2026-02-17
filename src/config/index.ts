@@ -13,6 +13,12 @@ interface Config {
   redis: {
     url: string;
   };
+  jwt: {
+    accessSecret: string;
+    refreshSecret: string;
+    accessExpiry: string;
+    refreshExpiry: string;
+  };
 }
 
 const config: Config = {
@@ -24,6 +30,12 @@ const config: Config = {
   },
   redis: {
     url: process.env.REDIS_URL || 'redis://localhost:6379',
+  },
+  jwt: {
+    accessSecret: process.env.JWT_ACCESS_SECRET || 'fallback-secret-key',
+    refreshSecret: process.env.JWT_REFRESH_SECRET || 'fallback-refresh-key',
+    accessExpiry: process.env.JWT_ACCESS_EXPIRY || '15m',
+    refreshExpiry: process.env.JWT_REFRESH_EXPIRY || '7d',
   },
 };
 
